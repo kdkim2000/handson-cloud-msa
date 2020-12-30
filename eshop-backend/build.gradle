@@ -17,8 +17,7 @@ configurations {
 }
 
 repositories {
-	maven { url "http://70.121.224.52:8081/nexus/content/repositories/jitpack/" }
-	maven { url "http://70.121.224.52:8081/nexus/content/repositories/spring-libs-release/" }
+	maven { url "http://70.121.224.52:8081/nexus/content/repositories/central/" }
     // mavenCentral()
 }
 
@@ -26,6 +25,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'    
     developmentOnly 'org.springframework.boot:spring-boot-devtools'    
     implementation 'com.google.guava:guava:28.2-jre'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

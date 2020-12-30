@@ -19,6 +19,8 @@ spec:
           env:
             - name: SPRING_REDIS_HOST
               value: redis
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq
 ---
 apiVersion: v1
 kind: Service
