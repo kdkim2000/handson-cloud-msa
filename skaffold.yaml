@@ -4,7 +4,8 @@ build:
   artifacts:
     - image: eshop-cartservice
       context: eshop-cartservice
-      jib: {}
+      jib:
+        type: gradle
     - image: eshop-backend
       context: eshop-backend
       jib:
