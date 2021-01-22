@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+build:
+  artifacts:
+    - image: eshop-backend
+      context: eshop-backend
+      jib:
+        type: gradle
+    - image: eshop-frontend
+      context: eshop-frontend
+deploy:
+  kubectl:
+    manifests:
+      - k8s/**.yaml
