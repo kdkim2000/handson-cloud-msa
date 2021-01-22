@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2beta8
+apiVersion: skaffold/v2beta10
 kind: Config
 build:
   artifacts:
@@ -10,17 +10,14 @@ build:
           HTTPS_PROXY: http://70.10.15.10:8080
     - image: eshop-cartservice
       context: eshop-cartservice
-      jib: {}
+      jib:
+        type: gradle
     - image: eshop-backend
       context: eshop-backend
-      jib: {}
+      jib:
+        type: gradle
     - image: eshop-frontend
       context: eshop-frontend
-      docker:
-        buildArgs:
-          HTTP_PROXY: http://70.10.15.10:8080
-          HTTPS_PROXY: http://70.10.15.10:8080
-          VUE_APP_BASE_URL: http://localhost/api
 deploy:
   kubectl:
     manifests:
