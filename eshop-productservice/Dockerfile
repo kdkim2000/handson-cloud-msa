@@ -1,9 +1,7 @@
-# build stage
 FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN npm set strict-ssl false --global
-RUN npm ci --only=production
+RUN npm install --only=production
 COPY . .
 
 EXPOSE 8092
