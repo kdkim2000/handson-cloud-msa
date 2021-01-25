@@ -1,7 +1,7 @@
 from flask import Flask
 import requests, random, os
 
-_url_productservice = os.environ.get("URL_PRODUCTSERVICE", default='http://localhost/api/products')
+_url_productservice = os.environ.get("URL_PRODUCTSERVICE", default='http://localhost:8080/api/products')
 
 app = Flask(__name__)
 
