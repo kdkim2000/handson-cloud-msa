@@ -6,9 +6,6 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 import com.google.common.math.DoubleMath;
 import com.samsungsds.eshop.payment.Money;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 @Service
