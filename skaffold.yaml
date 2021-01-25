@@ -4,10 +4,6 @@ build:
   artifacts:
     - image: eshop-currencyservice
       context: eshop-currencyservice
-      docker:
-        buildArgs:
-          HTTP_PROXY: http://70.10.15.10:8080
-          HTTPS_PROXY: http://70.10.15.10:8080
     - image: eshop-recommendservice
       context: eshop-recommendservice
     - image: eshop-productservice
