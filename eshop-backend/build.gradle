@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
-    id 'com.google.cloud.tools.jib' version '2.1.0'
+    id 'com.google.cloud.tools.jib' version '2.7.0'
 }
 
 group = 'com.samsungsds'
@@ -17,13 +17,12 @@ configurations {
 }
 
 repositories {
-	maven { url "http://70.121.224.52:8081/nexus/content/repositories/central/" }
-    // mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'    
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'    
+    implementation 'org.springframework.boot:spring-boot-starter-web'   
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'   
     implementation 'com.google.guava:guava:28.2-jre'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
 
