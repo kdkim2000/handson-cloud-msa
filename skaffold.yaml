@@ -16,6 +16,10 @@ build:
       context: eshop-backend
       jib:
         type: gradle
+    - image: eshop-adservice
+      context: eshop-adservice
+      jib:
+        type: gradle        
     - image: eshop-frontend
       context: eshop-frontend
 deploy:
