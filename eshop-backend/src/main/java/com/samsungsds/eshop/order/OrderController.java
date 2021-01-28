@@ -32,11 +32,11 @@ public class OrderController {
     private final PaymentService paymentService;
     private final ProductService productService;
 
-    public OrderController(final OrderService orderService, 
-    final ShippingService shippingService,
-    final  PaymentService paymentService,
-    final CartService cartService,
-    final ProductService productService) {
+    public OrderController(final OrderService orderService,
+                           final ShippingService shippingService,
+                           final PaymentService paymentService,
+                           final CartService cartService,
+                           final ProductService productService) {
         this.orderService = orderService;
         this.shippingService = shippingService;
         this.paymentService = paymentService;
@@ -75,7 +75,13 @@ public class OrderController {
         Money totalCost = itemPrice.plus(shippingResult.getShippingCost());
 
         // 주문ID 생성
-        String orderId = orderService.createOrderId(orderRequest);
+        String orderId = orderService.createOrderId();
+
+        //TODO: 주문생성 데이터 생성 필요함.
+        OrderItem newOrderItem = new OrderItem(orderRequest.getEmailAddress(),
+                orderRequest.getAddress().toString(),
+                orderRequest.getCreditCardInfo().toString());
+        orderService.createOrder(newOrderItem);
 
         // 카트 비우기
         cartService.emptyCart();

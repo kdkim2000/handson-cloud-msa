@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value="/ads")
 public class AdController {
     private Logger logger = LoggerFactory.getLogger(AdController.class);
-    // private static final ImmutableListMultimap<String, Ad> adsMap = createAdsMap();
     private final AdRepository adRepository;
     private static final Random random = new Random();
     private static final int MAX_ADS_TO_SERVE = 2;

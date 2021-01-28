@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
+
+    final OrderRepository orderRepository;
+
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
     Money calculateItemPrice(CartItem[] cartItems, Product[] products) {
         return Stream.of(cartItems).map(
                 cartItem -> Stream.of(products)
@@ -20,8 +27,14 @@ public class OrderService {
         ).reduce(new Money(), Money::plus);
     }
 
-    public String createOrderId(OrderRequest orderRequest) {
+    public String createOrderId() {
         // 원래는 뭔가 많이 해야 하지만 예제이므로 그냥 UUID
         return "ORDER-" + UUID.randomUUID().toString();
     }
+
+    public OrderItem createOrder(OrderItem orderItem){
+        return orderRepository.save(orderItem);
+    }
+
+
 }
