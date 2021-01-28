@@ -79,8 +79,9 @@ export default {
       },
       async checkout(context) {
         const orderResult = (await axios.post(process.env.VUE_APP_BASE_URL +"/checkouts/orders", context.state.orderInfo)).data
-        context.commit("emptyCart")
+        context.commit("emptyCart");
         context.commit("order/setOrder", orderResult, {root: true});
+        context.dispatch("order/fetchOrders",{}, {root: true});
       }
     },
     mutations: {
