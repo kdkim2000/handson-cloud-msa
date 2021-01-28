@@ -41,16 +41,16 @@ export default {
           currencyCode: "USD",
           units: totalUnits,
           nanos: totalNanos
-        }
+        };
         return totalCost
       },
       orderInfo: state => state.orderInfo
     },
     actions: {
       async emptyCart(context) {
-        console.log("emptyCart")
+        console.log("emptyCart");
         await axios.post(process.env.VUE_APP_BASE_URL + "/carts" + "/empty")
-        context.commit("emptyCart")
+        context.commit("emptyCart");
       },
       async addToCart(context, cartItem) {
         console.log("addToCart : " + JSON.stringify(cartItem))
@@ -70,7 +70,7 @@ export default {
       async fetchShippingCost(context, cartItems) {
         console.log("fetchShippingCost")
         console.log(cartItems)
-        const shippingCost = (await axios.post(process.env.VUE_APP_BASE_URL + "/checkouts/shippings/cost", 
+        const shippingCost = (await axios.post(process.env.VUE_APP_BASE_URL + "/checkouts/shippings/cost",
         cartItems.map(
           item => {
             return { productId: item.id, quantity: item.quantity }
@@ -85,14 +85,14 @@ export default {
     },
     mutations: {
       emptyCart(state) {
-        state.items = [] 
+        state.items = []
       },
       async addToCart(state, cartItem) {
         await state.items.push(cartItem)
         router.push("/cart")
       },
       setCartItems(state, cartItems) {
-        cartItems.map(cartItems => cartItems.product.picture = process.env.VUE_APP_BASE_URL + cartItems.product.picture) 
+        cartItems.map(cartItems => cartItems.product.picture = process.env.VUE_APP_BASE_URL + cartItems.product.picture)
         state.items = cartItems
       },
       setShippingCost(state, shippingCost) {

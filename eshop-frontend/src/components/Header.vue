@@ -5,6 +5,7 @@
       <b-nav-form v-if="currencies" method="POST" action="/setCurrency" id="currency_form">
         <b-form-select @change="setUserCurrency" :value="userCurrency" :options="currencies" style="width:auto;"></b-form-select>
         <router-link class="btn btn-primary btn-light ml-2" to="/cart" role="button">View Cart ({{cartSize}})</router-link>
+        <router-link class="btn btn-primary btn-light ml-2" to="/order-list" role="button">My Orders ({{ordersCount}})</router-link>
       </b-nav-form>
     </b-navbar-nav>
   </b-navbar>
@@ -15,18 +16,21 @@ import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: 'Header',
-  computed: mapGetters({ 
-    currencies: 'currency/currencies', 
-    userCurrency: 'currency/userCurrency', 
-    cartSize: 'cart/cartSize' 
+  computed: mapGetters({
+    currencies: 'currency/currencies',
+    userCurrency: 'currency/userCurrency',
+    cartSize: 'cart/cartSize',
+    ordersCount: 'order/ordersCount'
   }),
-  mounted() {
-    this.fetchCurrencies()
-    this.fetchCartItems()
+  async mounted() {
+    this.fetchCurrencies();
+    this.fetchCartItems();
+    await this.fetchOrders();
   },
   methods: {
     ...mapActions('cart', ['fetchCartItems']),
-    ...mapActions('currency', ['setUserCurrency', 'fetchCurrencies'])
+    ...mapActions('currency', ['setUserCurrency', 'fetchCurrencies']),
+    ...mapActions('order', ['fetchOrders']),
   }
 }
 </script>

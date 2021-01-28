@@ -1,5 +1,8 @@
 package com.samsungsds.eshop.order;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Iterables;
@@ -17,10 +20,7 @@ import com.samsungsds.eshop.shipping.ShippingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/checkouts")
@@ -44,13 +44,29 @@ public class OrderController {
         this.productService = productService;
     }
 
+
+    @GetMapping(value = "/orders")
+    public ResponseEntity<List<OrderItem>> getOrderItems(){
+        List<OrderItem> orderItemList = orderService.getOrderItems();
+        return ResponseEntity.ok(orderItemList);
+    }
+
+    @DeleteMapping(value = "/orders/{orderId}")
+    public ResponseEntity<Boolean> deleteOrder(@PathVariable Integer orderId) {
+        try {
+            orderService.deleteOrder(orderId);
+        } catch (Exception e){
+            return ResponseEntity.ok(false);
+        }
+        return ResponseEntity.ok(true);
+    }
+
     @PostMapping(value = "/orders")
     public ResponseEntity<OrderResult> placeOrder(@RequestBody OrderRequest orderRequest) {
         logger.info("placeOrder : " + orderRequest);
 
         // cart 조회
         CartItem[] cartItems = Iterables.toArray(cartService.getCartItems(), CartItem.class);
-
 
         // cart 상품 조회
         Product[] products = getProducts(cartItems);
@@ -76,9 +92,10 @@ public class OrderController {
 
         // 주문ID 생성
         String orderId = orderService.createOrderId();
+        String productIds = Arrays.stream(products).map(Product::getId).collect(Collectors.joining(","));
 
         //TODO: 주문생성 데이터 생성 필요함.
-        OrderItem newOrderItem = new OrderItem(orderRequest.getEmailAddress(),
+        OrderItem newOrderItem = new OrderItem(productIds, orderRequest.getEmailAddress(),
                 orderRequest.getAddress().toString(),
                 orderRequest.getCreditCardInfo().toString());
         orderService.createOrder(newOrderItem);

@@ -1,11 +1,6 @@
 package com.samsungsds.eshop.order;
 
-import com.samsungsds.eshop.payment.CreditCardInfo;
-import com.samsungsds.eshop.shipping.Address;
-
 import javax.persistence.*;
-
-import static org.aspectj.bridge.Version.getText;
 
 @Entity
 public class OrderItem {
@@ -13,11 +8,14 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+    private String productIds; // id, id, id
+
     private String emailAddress;
     private String address;
     private String creditCardInfo;
 
-    public OrderItem(String emailAddress, String address, String creditCardInfo) {
+    public OrderItem(String productIds, String emailAddress, String address, String creditCardInfo) {
+        this.productIds = productIds;
         this.emailAddress = emailAddress;
         this.address = address;
         this.creditCardInfo = creditCardInfo;
@@ -64,5 +62,13 @@ public class OrderItem {
         return "{" +
             " id='" + getId() + "'" +
             "}";
+    }
+
+    public String getProductIds() {
+        return productIds;
+    }
+
+    public void setProductIds(String productIds) {
+        this.productIds = productIds;
     }
 }

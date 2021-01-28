@@ -33,10 +33,16 @@ const routes = [
     component: () => import('@/components/Order.vue'),
     props: true
   },
-]
+  {
+    path: '/order-list',
+    name: 'OrderList',
+    component: () => import('@/components/OrderList.vue'),
+    props: true
+  }
+];
 
 const router = new VueRouter({
   routes
-})
+});
 
 export default router

@@ -1,5 +1,6 @@
 package com.samsungsds.eshop.order;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -37,4 +38,11 @@ public class OrderService {
     }
 
 
+    public List<OrderItem> getOrderItems() {
+        return (List<OrderItem>) orderRepository.findAll();
+    }
+
+    public void deleteOrder(Integer orderId) {
+        orderRepository.deleteById(orderId);
+    }
 }
