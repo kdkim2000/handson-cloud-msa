@@ -14,7 +14,8 @@ export default {
     actions: {
         async fetchOrders(context) {
             console.log('fetchOrderItems');
-            const orders = (await axios.get(process.env.VUE_APP_BASE_URL + "/checkouts/orders")).data;
+            let orders = (await axios.get(process.env.VUE_APP_BASE_URL + "/checkouts/orders")).data;
+
             context.commit("setOrders", orders)
         },
         setOrders(context, orders) {

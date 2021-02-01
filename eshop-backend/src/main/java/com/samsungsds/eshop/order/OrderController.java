@@ -46,9 +46,16 @@ public class OrderController {
 
 
     @GetMapping(value = "/orders")
-    public ResponseEntity<List<OrderItem>> getOrderItems(){
+    public ResponseEntity<List<OrderItemDTO>> getOrderItems(){
         List<OrderItem> orderItemList = orderService.getOrderItems();
-        return ResponseEntity.ok(orderItemList);
+        List<OrderItemDTO> result = orderItemList.stream()
+                .map(OrderItemDTO::new)
+                .peek(dto -> {
+                    List<OrderProduct> orderProducts = orderService.getOrderProducts(dto.getId());
+                    dto.setOrderProducts(orderProducts);
+                }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping(value = "/orders/{orderId}")
@@ -97,7 +104,9 @@ public class OrderController {
         //TODO: 주문생성 데이터 생성 필요함.
         OrderItem newOrderItem = new OrderItem(productIds, orderRequest.getEmailAddress(),
                 orderRequest.getAddress().toString(),
-                orderRequest.getCreditCardInfo().toString());
+                orderRequest.getCreditCardInfo().toString(),
+                cartItems
+        );
         orderService.createOrder(newOrderItem);
 
         // 카트 비우기

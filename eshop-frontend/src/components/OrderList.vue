@@ -7,6 +7,12 @@
             <b-row>
                 <div>
                     <b-table striped hover :items="orders" :fields="fields">
+                        <template #cell(id)="row">
+                            <b-button size="sm" class="mr-2" @click="onClickOrderId(row.item.id)">
+                                {{row.item.id}}
+                            </b-button>
+                        </template>
+
                         <template #cell(cancel)="row">
                             <b-button size="sm" class="mr-2" @click="onClickCancelOrderItem(row)">
                                 Cancel
@@ -16,6 +22,13 @@
                 </div>
             </b-row>
             <hr/>
+            <strong v-if="selectedOrder">
+                <b-row class="mt-5 py-2">
+                    <h3>Order Detail : {{selectedOrder.id}}</h3>
+                </b-row>
+                <b-table striped hover :items="selectedOrder.orderProducts" :fields="detailFields">
+                </b-table>
+            </strong>
         </b-container>
     </div>
 </template>
@@ -28,7 +41,9 @@
         data: () => {
             return {
                 fields: ['id', 'productIds', 'emailAddress', 'address', 'cancel'],
-                products: []
+                detailFields: ['productId','productName','quantity'],
+                products: [],
+                selectedOrder: null,
             }
         },
         components: {},
@@ -37,6 +52,12 @@
             async onClickCancelOrderItem(row) {
                 const targetId = row.item.id;
                 await this.deleteOrders(targetId);
+                if(this.selectedOrder.id === targetId) {
+                    this.selectedOrder = null;
+                }
+            },
+            onClickOrderId(id) {
+                this.selectedOrder = this.orders.find(order => order.id === id);
             }
         },
         computed: mapGetters({
@@ -44,10 +65,10 @@
         }),
 
         mounted() {
-            console.log(this.orders);
+
         },
         watch: {
-            //orders(orders) {}
+
         }
     }
 </script>

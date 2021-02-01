@@ -64,3 +64,15 @@ INSERT INTO product_category(product_id, category) VALUES ('0PUK6V6EV0','vintage
 INSERT INTO product_category(product_id, category) VALUES ('LS4PSXUNUM','cookware');
 INSERT INTO product_category(product_id, category) VALUES ('9SIQT8TOJO','cycling');
 INSERT INTO product_category(product_id, category) VALUES ('6E92ZMYYFZ','gardening');
+
+
+/* Inventory Data Insert */
+INSERT INTO inventory(id, product_id, product_name, quantity, location) VALUES ( 1, 'OLJCESPC7Z','Vintage Typewriter', 30, 'SEOUL');
+INSERT INTO inventory(id, product_id, product_name, quantity, location) VALUES ( 2, '66VCHSJNUP','Vintage Camera' , 30, 'SEOUL');
+INSERT INTO inventory(id, product_id, product_name, quantity, location) VALUES ( 3, '1YMWWN1N4O','Home Barista' , 30, 'SEOUL');
+INSERT INTO inventory(id, product_id, product_name, quantity, location) VALUES ( 4, 'L9ECAV7KIM','Terrarium' , 30, 'SEOUL');
+INSERT INTO inventory(id, product_id, product_name, quantity, location) VALUES ( 5, '2ZYFJ3GM2N','Film Camera' , 30, 'SEOUL');
+INSERT INTO inventory(id, product_id, product_name, quantity, location) VALUES ( 6, '0PUK6V6EV0','Vintage Record' , 30, 'SEOUL');
+INSERT INTO inventory(id, product_id, product_name, quantity, location) VALUES ( 7, 'LS4PSXUNUM','Metal Camping' , 30, 'SEOUL');
+INSERT INTO inventory(id, product_id, product_name, quantity, location) VALUES ( 8, '9SIQT8TOJO','City Bike', 30, 'SEOUL');
+INSERT INTO inventory(id, product_id, product_name, quantity, location) VALUES ( 9, '6E92ZMYYFZ','Air Plant', 30, 'SEOUL' );

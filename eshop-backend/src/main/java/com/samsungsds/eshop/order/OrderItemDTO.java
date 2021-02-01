@@ -3,12 +3,10 @@ package com.samsungsds.eshop.order;
 import com.samsungsds.eshop.cart.CartItem;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Entity
-public class OrderItem {
+public class OrderItemDTO {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String productIds; // id, id, id
 
@@ -16,19 +14,14 @@ public class OrderItem {
     private String address;
     private String creditCardInfo;
 
-    @Transient
-    private CartItem[] cartItems;
+    private List<OrderProduct> orderProducts;
 
-    public OrderItem() {
-
-    }
-
-    public OrderItem(String productIds, String emailAddress, String address, String creditCardInfo, CartItem[] cartItems) {
-        this.productIds = productIds;
-        this.emailAddress = emailAddress;
-        this.address = address;
-        this.creditCardInfo = creditCardInfo;
-        this.cartItems = cartItems;
+    public OrderItemDTO(OrderItem orderItem) {
+        this.id = orderItem.getId();
+        this.productIds = orderItem.getProductIds();
+        this.emailAddress = orderItem.getEmailAddress();
+        this.address = orderItem.getAddress();
+        this.creditCardInfo = orderItem.getCreditCardInfo();
     }
 
     public Integer getId() {
@@ -37,6 +30,14 @@ public class OrderItem {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getProductIds() {
+        return productIds;
+    }
+
+    public void setProductIds(String productIds) {
+        this.productIds = productIds;
     }
 
     public String getEmailAddress() {
@@ -63,26 +64,11 @@ public class OrderItem {
         this.creditCardInfo = creditCardInfo;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            "}";
+    public List<OrderProduct> getOrderProducts() {
+        return orderProducts;
     }
 
-    public String getProductIds() {
-        return productIds;
-    }
-
-    public void setProductIds(String productIds) {
-        this.productIds = productIds;
-    }
-
-    public CartItem[] getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(CartItem[] cartItems) {
-        this.cartItems = cartItems;
+    public void setOrderProducts(List<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
     }
 }
