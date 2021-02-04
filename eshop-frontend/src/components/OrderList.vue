@@ -23,9 +23,12 @@
             </b-row>
             <hr/>
             <strong v-if="selectedOrder">
-                <b-row class="mt-5 py-2">
-                    <h3>Order Detail : {{selectedOrder.id}}</h3>
+                <b-row class="mt-3 py-2">
+                    <h3>Order Detail </h3>
                 </b-row>
+              <b-row class="mt-1 py-3">
+                <h3>Id : {{selectedOrder.id}}</h3>
+              </b-row>
                 <b-table striped hover :items="selectedOrder.orderProducts" :fields="detailFields">
                 </b-table>
             </strong>

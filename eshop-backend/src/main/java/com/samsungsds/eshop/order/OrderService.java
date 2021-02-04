@@ -55,16 +55,13 @@ public class OrderService {
         // Insert Order Product
         CartItem[] cartItems = orderItem.getCartItems();
         Arrays.stream(cartItems).forEach(cartItem -> {
-            // Minus Inventory
             inventoryService.minusInventory(cartItem.getId(), cartItem.getQuantity());
 
             Product product = productService.fetchProductById(cartItem.getId());
-            //Insert Order Product history
             OrderProduct orderProduct = new OrderProduct();
             orderProduct.setOrderId(createdOrderItem.getId());
             orderProduct.setProductId(cartItem.getId());
             orderProduct.setQuantity(cartItem.getQuantity());
-            orderProduct.setProductName(orderProduct.getProductName());
             orderProductRepository.save(orderProduct);
         });
 

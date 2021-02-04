@@ -1,9 +1,6 @@
 package com.samsungsds.eshop.order;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
@@ -14,16 +11,18 @@ public class OrderProduct {
 
     private Integer orderId;
     private String productId;
-    private String productName;
+
     private Integer quantity;
+
+    @Transient
+    private String productName;
 
     public OrderProduct() { }
 
-    public OrderProduct(Integer id, Integer orderId, String productId, String productName, Integer quantity) {
+    public OrderProduct(Integer id, Integer orderId, String productId, Integer quantity) {
         this.id = id;
         this.orderId = orderId;
         this.productId = productId;
-        this.productName = productName;
         this.quantity = quantity;
     }
 
