@@ -50,8 +50,6 @@ public class OrderService {
     }
 
     public OrderItem createOrder(OrderItem orderItem) {
-        String productIds = orderItem.getProductIds();
-
         OrderItem createdOrderItem = orderRepository.save(orderItem);
 
         // Insert Order Product

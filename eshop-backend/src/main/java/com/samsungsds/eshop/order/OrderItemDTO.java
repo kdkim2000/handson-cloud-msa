@@ -18,7 +18,6 @@ public class OrderItemDTO {
 
     public OrderItemDTO(OrderItem orderItem) {
         this.id = orderItem.getId();
-        this.productIds = orderItem.getProductIds();
         this.emailAddress = orderItem.getEmailAddress();
         this.address = orderItem.getAddress();
         this.creditCardInfo = orderItem.getCreditCardInfo();
@@ -30,14 +29,6 @@ public class OrderItemDTO {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getProductIds() {
-        return productIds;
-    }
-
-    public void setProductIds(String productIds) {
-        this.productIds = productIds;
     }
 
     public String getEmailAddress() {

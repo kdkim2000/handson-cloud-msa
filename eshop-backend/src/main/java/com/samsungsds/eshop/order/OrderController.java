@@ -99,10 +99,10 @@ public class OrderController {
 
         // 주문ID 생성
         String orderId = orderService.createOrderId();
-        String productIds = Arrays.stream(products).map(Product::getId).collect(Collectors.joining(","));
 
         //TODO: 주문생성 데이터 생성 필요함.
-        OrderItem newOrderItem = new OrderItem(productIds, orderRequest.getEmailAddress(),
+        OrderItem newOrderItem = new OrderItem(
+                orderRequest.getEmailAddress(),
                 orderRequest.getAddress().toString(),
                 orderRequest.getCreditCardInfo().toString(),
                 cartItems

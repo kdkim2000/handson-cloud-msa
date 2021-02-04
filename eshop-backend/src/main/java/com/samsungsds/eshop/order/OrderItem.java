@@ -10,7 +10,6 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
-    private String productIds; // id, id, id
 
     private String emailAddress;
     private String address;
@@ -23,8 +22,7 @@ public class OrderItem {
 
     }
 
-    public OrderItem(String productIds, String emailAddress, String address, String creditCardInfo, CartItem[] cartItems) {
-        this.productIds = productIds;
+    public OrderItem(String emailAddress, String address, String creditCardInfo, CartItem[] cartItems) {
         this.emailAddress = emailAddress;
         this.address = address;
         this.creditCardInfo = creditCardInfo;
@@ -68,14 +66,6 @@ public class OrderItem {
         return "{" +
             " id='" + getId() + "'" +
             "}";
-    }
-
-    public String getProductIds() {
-        return productIds;
-    }
-
-    public void setProductIds(String productIds) {
-        this.productIds = productIds;
     }
 
     public CartItem[] getCartItems() {
