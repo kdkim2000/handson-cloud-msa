@@ -15,6 +15,10 @@ export default {
         async fetchOrders(context) {
             console.log('fetchOrderItems');
             let orders = (await axios.get(process.env.VUE_APP_BASE_URL + "/checkouts/orders")).data;
+            orders = orders.map( (order) => {
+                order.productCount = order.orderProducts.length;
+                return order;
+            });
 
             context.commit("setOrders", orders)
         },
@@ -26,7 +30,7 @@ export default {
             //Delete Order
             const result = (await axios.delete(process.env.VUE_APP_BASE_URL + `/checkouts/orders/${orderId}`)).data;
             if(result) {
-                context.dispatch('fetchOrders');
+                await context.dispatch('fetchOrders');
             }
         }
     },
