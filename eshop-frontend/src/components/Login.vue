@@ -47,6 +47,15 @@ export default {
   name: 'Login',
   components: {
   },
+  mounted:function(){
+    const token = localStorage.getItem('token');
+    if(token === null || token === ''){
+      localStorage.removeItem('token');
+      this.$router.push('/');
+    }else {
+      this.$router.push('/home');
+    }
+  },
   methods: {
     login: async function (){
       const user = await loginHelper.login(this.email, this.password);
