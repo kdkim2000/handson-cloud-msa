@@ -1,0 +1,18 @@
+server:
+  port: 7000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: monolithic
+          uri: lb://MONOLITHIC
+          predicates:
+            - Path=/**
