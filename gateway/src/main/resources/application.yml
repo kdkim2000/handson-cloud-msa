@@ -16,6 +16,10 @@ spring:
           uri: lb://MONOLITHIC
           predicates:
             - Path=/**
+        - id: ad
+          uri: lb://AD
+          predicates:
+            - Path=/ads/**                        
       globalcors:
         corsConfigurations:
           '[/**]':
