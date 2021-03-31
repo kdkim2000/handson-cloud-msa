@@ -12,4 +12,7 @@
 - 서비스 등록 상태 확인 Eureka Dashboard : http://localhost:8761/
 
 
+## 3/31 수요일
 
+- Front-End 에서 gateway 7000 번으로 호출하도록 변경 
+- Cors 문제가 발생해서, 기존 Back-end 프로젝트에서 설정 제거하고, GateWay에서 Cors 셋팅수행 
