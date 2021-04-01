@@ -16,3 +16,13 @@
 
 - Front-End 에서 gateway 7000 번으로 호출하도록 변경 
 - Cors 문제가 발생해서, 기존 Back-end 프로젝트에서 설정 제거하고, GateWay에서 Cors 셋팅수행 
+
+
+## 4/1 목요일
+- Docker Compose AD Mounted Volume 수정 
+- AD SErvie Eureka Dependency 추가 
+- Ad Appliacation에 @EnableEurekaClient 추가 
+- GateWay 설정 변경  
+- AD Service /api/ads => /ads 로 변경 
+- 구동 확인
+

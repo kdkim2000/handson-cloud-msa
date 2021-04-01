@@ -26,9 +26,10 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - ./data/postgres/data_ad:/var/lib/postgresql/data
+      - ./data/postgres/data:/var/lib/postgresql/ad
     environment:
       - POSTGRES_DB=eshop_db_ad
       - POSTGRES_USER=eshop_user_ad
       - POSTGRES_PASSWORD=password_ad
     container_name: handson-cloud-msa_postgres_ad  
+

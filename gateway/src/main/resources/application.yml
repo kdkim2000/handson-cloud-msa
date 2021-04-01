@@ -12,14 +12,14 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: ad
+          uri: lb://AD
+          predicates:
+            - Path=/ads/**
         - id: monolithic
           uri: lb://MONOLITHIC
           predicates:
             - Path=/**
-        - id: ad
-          uri: lb://AD
-          predicates:
-            - Path=/ads/**                        
       globalcors:
         corsConfigurations:
           '[/**]':

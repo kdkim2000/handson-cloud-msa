@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/api/ads")
+@RequestMapping(value="/ads")
 public class AdController {
     private Logger logger = LoggerFactory.getLogger(AdController.class);
     // private static final ImmutableListMultimap<String, Ad> adsMap = createAdsMap();
