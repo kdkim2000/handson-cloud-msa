@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import com.google.common.collect.Iterables;
 import com.samsungsds.eshop.cart.CartItem;
 import com.samsungsds.eshop.cart.CartService;
+import com.samsungsds.eshop.client.AdServiceClient;
 import com.samsungsds.eshop.payment.Money;
 import com.samsungsds.eshop.payment.PaymentRequest;
 import com.samsungsds.eshop.payment.PaymentService;
@@ -19,6 +20,7 @@ import com.samsungsds.eshop.shipping.ShippingService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,17 +33,20 @@ public class OrderController {
     private final CartService cartService;
     private final PaymentService paymentService;
     private final ProductService productService;
+    private final AdServiceClient adServiceClient;
 
     public OrderController(final OrderService orderService,
                            final ShippingService shippingService,
                            final PaymentService paymentService,
                            final CartService cartService,
-                           final ProductService productService) {
+                           final ProductService productService,
+                           final AdServiceClient adServiceClient) {
         this.orderService = orderService;
         this.shippingService = shippingService;
         this.paymentService = paymentService;
         this.cartService = cartService;
         this.productService = productService;
+        this.adServiceClient = adServiceClient;
     }
 
 
@@ -58,6 +63,15 @@ public class OrderController {
                 }).collect(Collectors.toList());
 
         return ResponseEntity.ok(result);
+    }
+
+
+    /* 타서비스 호출을 위한 테스트 부분 추가*/
+    @GetMapping(value = "/tests")
+    public ResponseEntity<String> test(){
+        List<Object> ads = adServiceClient.getAds();
+        ads.forEach(System.out::println);
+        return ResponseEntity.ok("abcd");
     }
 
     @DeleteMapping(value = "/orders/{orderId}")

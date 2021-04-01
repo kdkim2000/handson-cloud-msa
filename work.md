@@ -25,4 +25,4 @@
 - GateWay 설정 변경  
 - AD Service /api/ads => /ads 로 변경 
 - 구동 확인
-
+- 타 서비스 호출을 위한 Feign Client 추가 <- Backend-Service (AdsServiceClient 클래스 참고)

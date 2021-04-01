@@ -8,11 +8,9 @@ group = 'com.samsungsds'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-
 ext {
     set('springCloudVersion', "2020.0.0")
 }
-
 
 configurations {
     developmentOnly
@@ -48,7 +46,10 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.16'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
+
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
 }
 
 dependencyManagement {
