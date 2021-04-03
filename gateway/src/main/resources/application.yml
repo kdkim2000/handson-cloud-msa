@@ -16,6 +16,10 @@ spring:
           uri: lb://AD
           predicates:
             - Path=/ads/**
+        - id: currency
+          uri: lb://CURRENCY
+          predicates:
+            - Path=/currencies/**
         - id: monolithic
           uri: lb://MONOLITHIC
           predicates:
