@@ -40,4 +40,13 @@
   --> 어떻게 처리해야 하는지???
 - Monorithic 에서 currency 제거
 
-
+## 4/4 일요일
+- Backend 서비스 복사하여 Shipping 서비스 만들기
+- shipping db 신규 생성 docker-compose수정 (5434 Port사용)
+- api-gateway에 SHIPPING 활성화 (8096 Port 사용)
+- //TO-DO
+- shipping에서 cart 의 CartItem Class 참조, 복사하여 가져감 --> 정리 필요
+- shipping에서 payment의 Money Class 참조, 복사하여 가져감 --> 정리 필요
+- shipping에서 payment의 Money 관련 테이블 생성?? MoneyConverter 복사하여 가져감 --> 정리 필요
+- 기존 Monolithic 에서 Order시 Shipping 서비스를 참조하도록 수정 필요
+- Monorithic 에서 shipping 제거
