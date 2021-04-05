@@ -26,3 +26,27 @@
 - AD Service /api/ads => /ads 로 변경 
 - 구동 확인
 - 타 서비스 호출을 위한 Feign Client 추가 <- Backend-Service (AdsServiceClient 클래스 참고)
+
+## 4/3 토요일
+- Currency 서비스 새로만들기
+- 기존 Currency 서비스 가져오기 
+- Currency 에서 Redis를 사용하도록 수정
+- Redis에 환율 초기값 설정하는 방법을 몰라서 fetchCurrency 에서 강제 할당함 *****
+- api-gateway에 CURRENCY 활성화 (8094 Port 사용)
+- eureka client 등록
+- //TO-DO
+- Redis 에 초기값 넣고 fetchCurrency 정상화
+- currency 서비스에서 payment 의 Money Class 를 참조하는데 참조가 안되서 Money 클래스를 복사하여 가져옴
+  --> 어떻게 처리해야 하는지???
+- Monorithic 에서 currency 제거
+
+## 4/4 일요일
+- Backend 서비스 복사하여 Shipping 서비스 만들기
+- shipping db 신규 생성 docker-compose수정 (5434 Port사용)
+- api-gateway에 SHIPPING 활성화 (8096 Port 사용)
+- //TO-DO
+- shipping에서 cart 의 CartItem Class 참조, 복사하여 가져감 --> 정리 필요
+- shipping에서 payment의 Money Class 참조, 복사하여 가져감 --> 정리 필요
+- shipping에서 payment의 Money 관련 테이블 생성?? MoneyConverter 복사하여 가져감 --> 정리 필요
+- 기존 Monolithic 에서 Order시 Shipping 서비스를 참조하도록 수정 필요
+- Monorithic 에서 shipping 제거

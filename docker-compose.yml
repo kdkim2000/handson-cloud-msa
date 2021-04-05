@@ -33,3 +33,17 @@ services:
       - POSTGRES_PASSWORD=password_ad
     container_name: handson-cloud-msa_postgres_ad  
 
+  postgres_shipping:
+    image: postgres:13
+    restart: always
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/shipping
+    environment:
+      - POSTGRES_DB=eshop_db_shipping
+      - POSTGRES_USER=eshop_user_shipping
+      - POSTGRES_PASSWORD=password_shipping
+    container_name: handson-cloud-msa_postgres_shipping  
+  
+
