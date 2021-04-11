@@ -66,3 +66,15 @@ then
     sleep 10
 fi
 
+pid=$(ps ax | grep frontend | grep -v ' grep ' | awk '{print $1}')
+
+if [ "$pid" == "" ]
+then
+    cd ../eshop-frontend
+    npm audit fix
+    npm install
+    npm run serve &
+    cd ../scripts
+    echo "frontend is running"
+fi
+
