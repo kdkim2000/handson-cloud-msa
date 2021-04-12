@@ -1,4 +1,4 @@
-package com.samsungsds.eshop.ad;
+package com.samsungsds.eshop.ads;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
