@@ -1,6 +1,8 @@
 package com.samsungsds.eshop.shipping;
 
-public class ShippingItem {
+import java.io.Serializable;
+
+public class ShippingItem implements Serializable {
     private String productId;
     private int quantity;
 

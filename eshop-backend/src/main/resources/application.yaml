@@ -27,4 +27,9 @@ spring:
     cache:
       cachecontrol:
         max-age: 3600
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: root
 
