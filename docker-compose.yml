@@ -46,4 +46,12 @@ services:
       - POSTGRES_PASSWORD=password_shipping
     container_name: handson-cloud-msa_postgres_shipping  
   
-
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    volumes:
+      - ./data/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./data/rabbitmq/logs/:/var/log/rabbitmq/
+    ports:
+      - 5672:5672
+      - 15672:15672

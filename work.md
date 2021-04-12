@@ -50,3 +50,16 @@
 - shipping에서 payment의 Money 관련 테이블 생성?? MoneyConverter 복사하여 가져감 --> 정리 필요
 - 기존 Monolithic 에서 Order시 Shipping 서비스를 참조하도록 수정 필요
 - Monorithic 에서 shipping 제거
+
+## 4/11 일요일
+- Backend 서비스에서 ad, currency 제거
+- import.sql 에서 ad, currency 제거
+- 테스트를 위한 scripts 생성
+  . 전체 서비스 시작 : ./startAll.sh
+  . 전체 서비스 중지 : ./stopAll.sh
+  . 각각 서비스 시작 : ex) ./start_serv.sh adservice
+  . 각각 서비스 중지 : ex) ./stop_serv.sh adservice
+  . 각각 서비스 상태 : ex) ./status_serv.sh adservice
+- rabbitmq 설치 docer-compose 추가
+  . http://localhost:15672  rabbitmq 대시보드 (guest / guest)
+  . rabbitmq : 5672 port 
