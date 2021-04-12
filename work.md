@@ -63,3 +63,15 @@
 - rabbitmq 설치 docer-compose 추가
   . http://localhost:15672  rabbitmq 대시보드 (guest / guest)
   . rabbitmq : 5672 port 
+
+
+
+## 4/12 월요일
+
+- RabbitMQ 연결관련 참고자료 
+https://brunch.co.kr/@springboot/298
+
+- Shipping Service , Backend 에 대한 메시지 큐 적용 
+  - /checkouts/test 호출시 JSON 스트링 발송 
+  - Shipping 에서 받아서 출력만 하도록 설정 되어 있음
+   

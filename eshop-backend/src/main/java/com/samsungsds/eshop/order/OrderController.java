@@ -1,5 +1,6 @@
 package com.samsungsds.eshop.order;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,12 +15,17 @@ import com.samsungsds.eshop.payment.PaymentRequest;
 import com.samsungsds.eshop.payment.PaymentService;
 import com.samsungsds.eshop.product.Product;
 import com.samsungsds.eshop.product.ProductService;
+import com.samsungsds.eshop.shipping.ShippingItem;
 import com.samsungsds.eshop.shipping.ShippingRequest;
 import com.samsungsds.eshop.shipping.ShippingResult;
 import com.samsungsds.eshop.shipping.ShippingService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,19 +40,22 @@ public class OrderController {
     private final PaymentService paymentService;
     private final ProductService productService;
     private final AdServiceClient adServiceClient;
+    private final RabbitTemplate rabbitTemplate;
 
     public OrderController(final OrderService orderService,
                            final ShippingService shippingService,
                            final PaymentService paymentService,
                            final CartService cartService,
                            final ProductService productService,
-                           final AdServiceClient adServiceClient) {
+                           final AdServiceClient adServiceClient,
+                           final RabbitTemplate rabbitTemplate) {
         this.orderService = orderService;
         this.shippingService = shippingService;
         this.paymentService = paymentService;
         this.cartService = cartService;
         this.productService = productService;
         this.adServiceClient = adServiceClient;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
 
@@ -66,11 +75,23 @@ public class OrderController {
     }
 
 
-    /* 타서비스 호출을 위한 테스트 부분 추가*/
+
     @GetMapping(value = "/tests")
     public ResponseEntity<String> test(){
-        List<Object> ads = adServiceClient.getAds();
-        ads.forEach(System.out::println);
+        /* 타서비스 호출을 위한 테스트 부분 추가*/
+        //List<Object> ads = adServiceClient.getAds();
+        //ads.forEach(System.out::println);
+
+        // Shipping Service로 메세지 전송 하는 부분 추가
+        String jsonString = "{\"quantity\":\"30\", \"productId\":\"PRODUCT_01\"}";
+        ShippingItem shippingItem = new ShippingItem();
+        shippingItem.setQuantity(30);
+        shippingItem.setProductId("PRODUCT_NO_1");
+        Message shippingMessage = MessageBuilder.withBody(jsonString.getBytes()).setContentType(MessageProperties.CONTENT_TYPE_JSON).build();
+        String EXCHANGE_NAME="shipping.topic";
+
+        rabbitTemplate.convertAndSend(EXCHANGE_NAME, "order.shipping.first", shippingMessage);
+
         return ResponseEntity.ok("abcd");
     }
 
