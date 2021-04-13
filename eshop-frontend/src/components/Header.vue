@@ -6,7 +6,8 @@
         <b-form-select @change="setUserCurrency" :value="userCurrency" :options="currencies" style="width:auto;"></b-form-select>
         <router-link class="btn btn-primary btn-light ml-2" to="/cart" role="button">View Cart ({{cartSize}})</router-link>
         <router-link class="btn btn-primary btn-light ml-2" to="/order-list" role="button">My Orders ({{ordersCount}})</router-link>
-        <b-button variant="primary" class="btn btn-primary btn-light ml-2" @click="logout()">Logout</b-button>
+        <router-link class="btn btn-primary btn-light ml-2" to="/login" role="button">Login</router-link>
+        <!-- <b-button variant="primary" class="btn btn-primary btn-light ml-2" @click="login()">Login</b-button> -->
       </b-nav-form>
     </b-navbar-nav>
   </b-navbar>
@@ -37,10 +38,7 @@ export default {
     ...mapActions('cart', ['fetchCartItems']),
     ...mapActions('currency', ['setUserCurrency', 'fetchCurrencies']),
     ...mapActions('order', ['fetchOrders']),
-    logout: function() {
-      localStorage.removeItem('token');
-      this.$router.push('/');
-    },
+    ...mapActions('login', ['signUp']),
   }
 }
 </script>

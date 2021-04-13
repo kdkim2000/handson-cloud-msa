@@ -20,6 +20,7 @@
           <b-input
               id="input-2"
               v-model="password"
+              type="password"
               required
               placeholder="Enter Password"></b-input>
         </b-card>
@@ -51,7 +52,7 @@ export default {
     const token = localStorage.getItem('token');
     if(token === null || token === ''){
       localStorage.removeItem('token');
-      this.$router.push('/');
+      this.$router.push('/login');
     }else {
       this.$router.push('/home');
     }
