@@ -55,16 +55,14 @@
 - Backend 서비스에서 ad, currency 제거
 - import.sql 에서 ad, currency 제거
 - 테스트를 위한 scripts 생성
-  . 전체 서비스 시작 : ./startAll.sh
-  . 전체 서비스 중지 : ./stopAll.sh
-  . 각각 서비스 시작 : ex) ./start_serv.sh adservice
-  . 각각 서비스 중지 : ex) ./stop_serv.sh adservice
-  . 각각 서비스 상태 : ex) ./status_serv.sh adservice
+  * 전체 서비스 시작 : ./startAll.sh
+  * 전체 서비스 중지 : ./stopAll.sh
+  * 각각 서비스 시작 : ex) ./start_serv.sh adservice
+  * 각각 서비스 중지 : ex) ./stop_serv.sh adservice
+  * 각각 서비스 상태 : ex) ./status_serv.sh adservice
 - rabbitmq 설치 docer-compose 추가
-  . http://localhost:15672  rabbitmq 대시보드 (guest / guest)
-  . rabbitmq : 5672 port 
-
-
+  * http://localhost:15672  rabbitmq 대시보드 (guest / guest)
+  * rabbitmq : 5672 port 
 
 ## 4/12 월요일
 
@@ -74,4 +72,17 @@ https://brunch.co.kr/@springboot/298
 - Shipping Service , Backend 에 대한 메시지 큐 적용 
   - /checkouts/test 호출시 JSON 스트링 발송 
   - Shipping 에서 받아서 출력만 하도록 설정 되어 있음
+
+## 4/13 화요일
+
+- user 서비스 분리 (8097 Port 사용)
+- docker-compose 수정 : user를 위한 DB신규 추가
+- backend import.sql에서 user 부분을 제거 함
+- login 조금 수정 : logout 버튼 대신 login 버튼을 넣으려고 했으나 잘 안됨
+- 의도 : login 전에는 login 버튼, login 이후에는 logout 버튼으로 보이도록 한다.
+
+- TO-DO
+  * backend에서 login 모듈 제거
+  * login 모듈 삭제시 오류 발생 : products 에서 login을 참고하는 것 같으나 참조하는 곳을 못찾겠음 T.T
+  
    
