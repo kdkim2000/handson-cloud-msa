@@ -44,7 +44,7 @@ then
     sleep 10
 fi
 
-pid=$(ps ax | grep gradlew | grep currency | grep -v ' grep ' | awk '{print $1}')
+pid=$(ps ax | grep gradlew | grep currencyservice | grep -v ' grep ' | awk '{print $1}')
 
 if [ "$pid" == "" ]
 then
@@ -55,7 +55,7 @@ then
     sleep 10
 fi
 
-pid=$(ps ax | grep gradlew | grep shipping | grep -v ' grep ' | awk '{print $1}')
+pid=$(ps ax | grep gradlew | grep shippingservice | grep -v ' grep ' | awk '{print $1}')
 
 if [ "$pid" == "" ]
 then
@@ -63,6 +63,17 @@ then
     ./gradlew bootRun &
     cd ../scripts
     echo "shippingservice is running"
+    sleep 10
+fi
+
+pid=$(ps ax | grep gradlew | grep userservice | grep -v ' grep ' | awk '{print $1}')
+
+if [ "$pid" == "" ]
+then
+    cd ../eshop-userservice
+    ./gradlew bootRun &
+    cd ../scripts
+    echo "userservice is running"
     sleep 10
 fi
 

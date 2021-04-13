@@ -46,6 +46,19 @@ services:
       - POSTGRES_PASSWORD=password_shipping
     container_name: handson-cloud-msa_postgres_shipping  
   
+  postgres_user:
+    image: postgres:13
+    restart: always
+    ports:
+      - "5435:5432"
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/user
+    environment:
+      - POSTGRES_DB=eshop_db_user
+      - POSTGRES_USER=eshop_user_user
+      - POSTGRES_PASSWORD=password_user
+    container_name: handson-cloud-msa_postgres_user  
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: rabbitmq
