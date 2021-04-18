@@ -40,6 +40,12 @@ then
         ./gradlew bootRun &
         cd ../scripts
         echo "$1 is running"
+    elif [ "user" == "$1" ]
+    then
+        cd ../eshop-userservice
+        ./gradlew bootRun &
+        cd ../scripts
+        echo "$1 is running"
     elif [ "gateway" == "$1" ]
     then
         cd ../gateway

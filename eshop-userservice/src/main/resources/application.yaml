@@ -1,0 +1,32 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+server:
+  port: 8097
+spring:
+  application:
+    name: USER
+  datasource:
+    initialization-mode: always
+    password: password_user
+    url: jdbc:postgresql://localhost:5435/eshop_db_user
+    username: eshop_user_user
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    cache:
+      cachecontrol:
+        max-age: 3600
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: root
+

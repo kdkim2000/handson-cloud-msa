@@ -12,6 +12,10 @@ spring:
   cloud:
     gateway:
       routes:
+        - id: user
+          uri: lb://USER
+          predicates:
+            - Path=/user/**
         - id: ad
           uri: lb://AD
           predicates:
