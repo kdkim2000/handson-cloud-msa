@@ -85,4 +85,8 @@ https://brunch.co.kr/@springboot/298
   * backend에서 login 모듈 제거
   * login 모듈 삭제시 오류 발생 : products 에서 login을 참고하는 것 같으나 참조하는 곳을 못찾겠음 T.T
   
-   
+## 4/18 일요일
+
+- User Service 제거 (Backend) : 그전에 안됐던 이유는 Spring Security 설정에 포함 되어 있는 부분들이 제거가 되지 않아서 문제가 됨
+- Front-End에서 로그인 상태를 나타낼수 있는 isLogin 변수를 스토어에 두어, 상태에 따라서 버튼을 바꾸도록 작업 함
+- 기능 정상적으로 돌아 가는 것까지 확인함

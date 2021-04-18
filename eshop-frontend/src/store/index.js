@@ -6,6 +6,7 @@ import currency from '@/store/modules/currency'
 import order from '@/store/modules/order'
 import product from '@/store/modules/product'
 import recommendation from '@/store/modules/recommendation'
+import common from '@/store/modules/common'
 
 Vue.use(Vuex)
 
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     currency,
     order,
     product,
-    recommendation
+    recommendation,
+    common,
   }
 })
