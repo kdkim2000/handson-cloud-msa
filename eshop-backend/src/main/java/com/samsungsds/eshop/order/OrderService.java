@@ -13,10 +13,12 @@ import com.samsungsds.eshop.payment.Money;
 import com.samsungsds.eshop.product.Product;
 
 import com.samsungsds.eshop.product.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.utility.visitor.LineNumberPrependingMethodVisitor;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class OrderService {
 
     final OrderRepository orderRepository;
@@ -73,7 +75,7 @@ public class OrderService {
         return (List<OrderItem>) orderRepository.findAll();
     }
 
-    public void deleteOrder(Integer orderId) {
+    public void removeOrder(Integer orderId) {
         Optional<OrderItem> orderItem = orderRepository.findById(orderId);
         //Revert Inventory Item count
         orderItem.ifPresent(od -> {
@@ -81,9 +83,21 @@ public class OrderService {
             orderProducts.stream().forEach(orderProduct -> {
                 inventoryService.plusInventory(orderProduct.getProductId(), orderProduct.getQuantity());
             });
+            orderRepository.deleteById(orderId);
         });
+    }
 
-        orderRepository.deleteById(orderId);
+    public void cancelOrder(Integer orderId) {
+        Optional<OrderItem> orderItem = orderRepository.findById(orderId);
+        //Revert Inventory Item count
+        orderItem.ifPresent(od -> {
+            List<OrderProduct> orderProducts = orderProductRepository.findAllByOrderId(od.getId());
+            orderProducts.stream().forEach(orderProduct -> {
+                inventoryService.plusInventory(orderProduct.getProductId(), orderProduct.getQuantity());
+            });
+            od.setCanceled(true);
+            orderRepository.save(od);
+        });
     }
 
     public List<OrderProduct> getOrderProducts(Integer orderId) {

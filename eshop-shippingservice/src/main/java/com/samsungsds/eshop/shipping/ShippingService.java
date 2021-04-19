@@ -10,7 +10,6 @@ import com.google.common.math.DoubleMath;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,7 +25,7 @@ public class ShippingService {
     }
 
     Money calculateShippingCostFromCount(final int count) {
-        if(count == 0) {
+        if (count == 0) {
             return new Money("USD", 0, 0);
         }
         double p = 1 + (count * 0.2d);
@@ -54,7 +53,7 @@ public class ShippingService {
         return shippingRepository.save(shippingRequest);
     }
 
-    public ShippingResult getShippingResultByOrderId(Integer orderId){
+    public ShippingResult getShippingResultByOrderId(Integer orderId) {
         return shippingRepository.findShippingResultByOrderId(orderId);
     }
 
@@ -62,5 +61,16 @@ public class ShippingService {
     private String createShippingTrackingId(ShippingRequest shippingRequest) {
         // 원래는 뭔가 많이 해야 하지만 예제이므로 그냥 UUID
         return "SHIPPING-" + UUID.randomUUID().toString();
+    }
+
+    public ShippingResult getShipping(Integer shippingId) {
+        return shippingRepository.findById(shippingId).get();
+    }
+
+    public ShippingResult updateShippingStatus(Integer shippingId, ShippingStatus status) {
+        ShippingResult shippingResult = shippingRepository.findById(shippingId).get();
+        shippingResult.setStatus(status);
+        shippingRepository.save(shippingResult);
+        return shippingResult;
     }
 }
