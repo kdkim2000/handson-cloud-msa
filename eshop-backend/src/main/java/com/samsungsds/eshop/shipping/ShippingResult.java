@@ -10,19 +10,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.criteria.CriteriaBuilder;
 
+import java.io.Serializable;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShippingResult {
+public class ShippingResult implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer orderId;
     private String shippingTrackingId;
     private Money shippingCost;
     private ShippingStatus status = ShippingStatus.READY;
+
     public ShippingResult(String shippingTrackingId, Money shippingCost) {
         this.shippingTrackingId = shippingTrackingId;
         this.shippingCost = shippingCost;
@@ -58,6 +61,16 @@ public class ShippingResult {
 
     public void setStatus(ShippingStatus status) {
         this.status = status;
+    }
+
+    public void setStatus(String status) {
+        if ("ready".equals(status)) {
+            this.status = ShippingStatus.READY;
+        }else if ("shipping".equals(status)) {
+            this.status = ShippingStatus.SHIPPING;
+        }else if ("completed".equals(status)) {
+            this.status = ShippingStatus.COMPLETED;
+        }
     }
 
     public Integer getId() {

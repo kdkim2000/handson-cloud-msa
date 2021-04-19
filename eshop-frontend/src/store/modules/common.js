@@ -10,8 +10,8 @@ export default {
     },
     mutations: {
         setIsLogin(state, isLogin) {
-            console.log('# : ', isLogin);
             state.isLogin = isLogin
         },
     }
 }
+
