@@ -1,6 +1,8 @@
 package com.samsungsds.eshop.shipping;
 
-enum ShippingStatus {
+import java.io.Serializable;
+
+enum ShippingStatus implements Serializable {
     READY("ready"), SHIPPING("shipping"), COMPLETED("completed");
 
     public String value;
@@ -12,4 +14,6 @@ enum ShippingStatus {
     public String getValue(){
         return this.value;
     }
+
+
 }

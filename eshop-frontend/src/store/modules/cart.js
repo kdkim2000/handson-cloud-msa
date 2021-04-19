@@ -70,7 +70,7 @@ export default {
       async fetchShippingCost(context, cartItems) {
         console.log("fetchShippingCost")
         console.log(cartItems)
-        const shippingCost = (await axios.post(process.env.VUE_APP_BASE_URL + "/checkouts/shippings/cost",
+        const shippingCost = (await axios.post(process.env.VUE_APP_BASE_URL + "/shippings/cost",
         cartItems.map(
           item => {
             return { productId: item.id, quantity: item.quantity }

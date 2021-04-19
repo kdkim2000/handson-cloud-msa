@@ -28,7 +28,6 @@ spring:
           uri: lb://SHIPPING
           predicates:
             - Path=/shippings/**
-            - Path=/checkouts/shippings/cost/**
         - id: monolithic
           uri: lb://MONOLITHIC
           predicates:

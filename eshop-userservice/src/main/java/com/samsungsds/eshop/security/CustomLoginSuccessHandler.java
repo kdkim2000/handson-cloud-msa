@@ -18,6 +18,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
                                         Authentication authentication) throws IOException {
         User user = ((MyUserDetails) authentication.getPrincipal()).getUser();
         String token = TokenUtils.generateJwtToken(user);
+        response.setHeader("Access-Control-Expose-Headers", AuthConstants.AUTH_HEADER);
         response.addHeader(AuthConstants.AUTH_HEADER, AuthConstants.TOKEN_TYPE + " " + token);
     }
 

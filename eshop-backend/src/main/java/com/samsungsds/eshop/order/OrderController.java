@@ -10,6 +10,7 @@ import com.google.common.collect.Iterables;
 import com.samsungsds.eshop.cart.CartItem;
 import com.samsungsds.eshop.cart.CartService;
 import com.samsungsds.eshop.client.AdServiceClient;
+import com.samsungsds.eshop.client.ShippingServiceClient;
 import com.samsungsds.eshop.payment.Money;
 import com.samsungsds.eshop.payment.PaymentRequest;
 import com.samsungsds.eshop.payment.PaymentService;
@@ -18,7 +19,6 @@ import com.samsungsds.eshop.product.ProductService;
 import com.samsungsds.eshop.shipping.ShippingItem;
 import com.samsungsds.eshop.shipping.ShippingRequest;
 import com.samsungsds.eshop.shipping.ShippingResult;
-import com.samsungsds.eshop.shipping.ShippingService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,6 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageBuilder;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,27 +34,24 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     private final Logger logger = LoggerFactory.getLogger(OrderController.class);
     private final OrderService orderService;
-    private final ShippingService shippingService;
     private final CartService cartService;
     private final PaymentService paymentService;
     private final ProductService productService;
-    private final AdServiceClient adServiceClient;
     private final RabbitTemplate rabbitTemplate;
+    private final ShippingServiceClient shippingServiceClient;
 
     public OrderController(final OrderService orderService,
-                           final ShippingService shippingService,
                            final PaymentService paymentService,
                            final CartService cartService,
                            final ProductService productService,
-                           final AdServiceClient adServiceClient,
+                           final ShippingServiceClient shippingServiceClient,
                            final RabbitTemplate rabbitTemplate) {
         this.orderService = orderService;
-        this.shippingService = shippingService;
         this.paymentService = paymentService;
         this.cartService = cartService;
         this.productService = productService;
-        this.adServiceClient = adServiceClient;
         this.rabbitTemplate = rabbitTemplate;
+        this.shippingServiceClient = shippingServiceClient;
     }
 
 
@@ -67,7 +63,8 @@ public class OrderController {
                 .peek(dto -> {
                     List<OrderProduct> orderProducts = orderService.getOrderProducts(dto.getId());
                     dto.setOrderProducts(orderProducts);
-                    ShippingResult shippingInfo = shippingService.getShippingResultByOrderId(dto.getId());
+                    ShippingResult shippingInfo = shippingServiceClient.getShippings(dto.getId());
+                    //shippingServiceClient
                     dto.setShippingStatus(shippingInfo.getStatus());
                 }).collect(Collectors.toList());
 
@@ -120,7 +117,7 @@ public class OrderController {
         logger.info("total item price : " + itemPrice);
 
         // 예상 배송비 계산
-        Money shippingCost = shippingService.calculateShippingCostFromCartItems(cartItems);
+        Money shippingCost = shippingServiceClient.calculateShippingCost(cartItems);
 
         // 결제 요청
         PaymentRequest request = new PaymentRequest(orderRequest.getCreditCardInfo(), itemPrice.plus(shippingCost));
@@ -132,7 +129,7 @@ public class OrderController {
 
         // 배송 요청
         ShippingRequest shippingRequest = new ShippingRequest(cartItems, orderRequest.getAddress());
-        ShippingResult shippingResult = shippingService.shipOrder(shippingRequest);
+        ShippingResult shippingResult = shippingServiceClient.processShipOrder(shippingRequest);
         logger.info("shippingCost : " + shippingResult.getShippingCost());
 
         // 총액 계산
@@ -147,7 +144,7 @@ public class OrderController {
         );
         OrderItem order = orderService.createOrder(newOrderItem);
         shippingResult.setOrderId(order.getId());
-        shippingService.saveShipping(shippingResult);
+        shippingServiceClient.saveShipping(shippingResult);
         // 카트 비우기
         cartService.emptyCart();
         return ResponseEntity.ok(new OrderResult(orderId, shippingResult.getShippingTrackingId(),

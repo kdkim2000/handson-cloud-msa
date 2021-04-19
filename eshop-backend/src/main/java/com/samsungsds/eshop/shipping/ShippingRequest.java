@@ -1,10 +1,11 @@
 package com.samsungsds.eshop.shipping;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import com.samsungsds.eshop.cart.CartItem;
 
-public class ShippingRequest {
+public class ShippingRequest implements Serializable {
     private CartItem[] cartItems;
     private Address shippingAddress;
     private String orderId;

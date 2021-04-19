@@ -6,7 +6,7 @@
         <b-form-select @change="setUserCurrency" :value="userCurrency" :options="currencies" style="width:auto;"></b-form-select>
         <router-link class="btn btn-primary btn-light ml-2" to="/cart" role="button">View Cart ({{cartSize}})</router-link>
         <router-link class="btn btn-primary btn-light ml-2" to="/order-list" role="button">My Orders ({{ordersCount}})</router-link>
-        <router-link class="btn btn-primary btn-light ml-2" to="/login" role="button">Login</router-link>
+        <router-link class="btn btn-primary btn-light ml-2" to="/login" role="button">{{isLogin ? 'LogOut' : 'Login'}}</router-link>
         <!-- <b-button variant="primary" class="btn btn-primary btn-light ml-2" @click="login()">Login</b-button> -->
       </b-nav-form>
     </b-navbar-nav>
@@ -15,7 +15,6 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
-
 
 export default {
   name: 'Header',
@@ -27,7 +26,8 @@ export default {
     currencies: 'currency/currencies',
     userCurrency: 'currency/userCurrency',
     cartSize: 'cart/cartSize',
-    ordersCount: 'order/ordersCount'
+    ordersCount: 'order/ordersCount',
+    isLogin:'common/isLogin',
   }),
   async mounted() {
     this.fetchCurrencies();
@@ -38,7 +38,6 @@ export default {
     ...mapActions('cart', ['fetchCartItems']),
     ...mapActions('currency', ['setUserCurrency', 'fetchCurrencies']),
     ...mapActions('order', ['fetchOrders']),
-    ...mapActions('login', ['signUp']),
   }
 }
 </script>

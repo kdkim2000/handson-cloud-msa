@@ -5,6 +5,7 @@ export const loginHelper = {
 };
 
 function login(userEmail, userPassword) {
+    console.log('1');
     const requestOptions = {
         method: 'POST',
         headers: {

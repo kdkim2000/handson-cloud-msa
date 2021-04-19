@@ -9,11 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShippingResult {
+public class ShippingResult implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -74,5 +75,15 @@ public class ShippingResult {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public void setStatus(String status) {
+        if ("ready".equals(status)) {
+            this.status = ShippingStatus.READY;
+        }else if ("shipping".equals(status)) {
+            this.status = ShippingStatus.SHIPPING;
+        }else if ("completed".equals(status)) {
+            this.status = ShippingStatus.COMPLETED;
+        }
     }
 }

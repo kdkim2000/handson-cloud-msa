@@ -43,6 +43,7 @@
 
 <script>
 import {loginHelper} from "@/helper/LoginHelper";
+import {mapMutations} from "vuex";
 
 export default {
   name: 'Login',
@@ -52,15 +53,19 @@ export default {
     const token = localStorage.getItem('token');
     if(token === null || token === ''){
       localStorage.removeItem('token');
+      this.setIsLogin(false);
       this.$router.push('/login');
-    }else {
-      this.$router.push('/home');
+    }else { // Logout 처리
+      localStorage.removeItem('token');
+      this.setIsLogin(false);
+      this.$router.push('/login');
     }
   },
   methods: {
     login: async function (){
       const user = await loginHelper.login(this.email, this.password);
       if(user) {
+        this.setIsLogin(true);
         await this.$router.push('/home');
       }else {
         alert('Login Failed! ');
@@ -69,7 +74,8 @@ export default {
     onReset: function (){
       this.email = '';
       this.password = '';
-    }
+    },
+    ...mapMutations('common', ['setIsLogin']),
   },
   data: function () {
     return {
@@ -78,6 +84,7 @@ export default {
     }
   },
   computed: {
+
   }
 }
 </script>
