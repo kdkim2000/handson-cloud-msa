@@ -27,7 +27,13 @@ spring:
     cache:
       cachecontrol:
         max-age: 3600
-
+opentracing:
+  jaeger:
+    enabled: true
+    udp-sender:
+      host: localhost
+      port: 6831
+    log-spans: true
   rabbitmq:
     host: localhost
     port: 5672
