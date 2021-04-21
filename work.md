@@ -90,3 +90,21 @@ https://brunch.co.kr/@springboot/298
 - User Service 제거 (Backend) : 그전에 안됐던 이유는 Spring Security 설정에 포함 되어 있는 부분들이 제거가 되지 않아서 문제가 됨
 - Front-End에서 로그인 상태를 나타낼수 있는 isLogin 변수를 스토어에 두어, 상태에 따라서 버튼을 바꾸도록 작업 함
 - 기능 정상적으로 돌아 가는 것까지 확인함
+
+## 4/19 월요일
+### 오전
+- Backend 에서 Shipping Service를 지우고, 직접 호출해서 서로 통신하도록 변경함 
+- Shipping Service에 있으면서 Controller Endpoint 없는부분들은 호출 할수 있는 Endpoint 새로 생성함
+- URL 정리 작업 진행
+### 오후
+- 배송실패 API 작성 : http://localhost:8096/shippings/cancel/1
+- 배송실패시 Backend로 메시지 전송 -> 백엔드서비스에서는 주문을 취소(isCaneled필드 셋팅) 함 (각 서버에 리스터 및 템플릿 추가)
+- 주문목록 화면에서 배송 실패처리된 건에 대해서는 cancel 버튼이 보여지지 않도록 함
+
+
+## 4/20-21 화요일 수요일
+- Spring boot 버전 변겅  => 2.3.5 RELEASE
+- Cloud version 변경  => Hoxton.SR10
+- Jaeger 설정을 위한 라이브러리, 설정파일 모든 프로젝트 대상으로 추가
+- Jaeger All in  one 도커 기반 실행을 위한 Shell 파일 생성
+- Jageger 확인  JaeerUI: http://localhost:16686/ 

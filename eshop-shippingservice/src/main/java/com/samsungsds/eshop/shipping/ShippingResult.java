@@ -84,6 +84,8 @@ public class ShippingResult implements Serializable {
             this.status = ShippingStatus.SHIPPING;
         }else if ("completed".equals(status)) {
             this.status = ShippingStatus.COMPLETED;
+        }else if ("failed".equals(status)) {
+            this.status = ShippingStatus.FAILED;
         }
     }
 }

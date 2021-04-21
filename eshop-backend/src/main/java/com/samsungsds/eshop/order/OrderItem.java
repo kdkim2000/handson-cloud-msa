@@ -15,6 +15,7 @@ public class OrderItem {
     private String address;
     private String creditCardInfo;
     private Integer shippingId;
+    private Boolean isCanceled;
 
     @Transient
     private CartItem[] cartItems;
@@ -84,5 +85,13 @@ public class OrderItem {
 
     public void setShippingId(Integer shippingId) {
         this.shippingId = shippingId;
+    }
+
+    public Boolean getCanceled() {
+        return isCanceled;
+    }
+
+    public void setCanceled(Boolean canceled) {
+        isCanceled = canceled;
     }
 }

@@ -14,8 +14,8 @@
                         </template>
 
                         <template #cell(cancel)="row">
-                            <b-button size="sm" class="mr-2" @click="onClickCancelOrderItem(row)">
-                                Cancel
+                            <b-button v-if="row.item.canceled === null" size="sm" class="mr-2" @click="onClickCancelOrderItem(row)">
+                              Cancel
                             </b-button>
                         </template>
                     </b-table>
@@ -53,9 +53,11 @@
         methods: {
             ...mapActions('order', ['deleteOrders']),
             async onClickCancelOrderItem(row) {
+                console.log(row)
                 const targetId = row.item.id;
+                console.log(targetId)
                 await this.deleteOrders(targetId);
-                if(this.selectedOrder.id === targetId) {
+                if(this.selectedOrder && this.selectedOrder.id === targetId) {
                     this.selectedOrder = null;
                 }
             },

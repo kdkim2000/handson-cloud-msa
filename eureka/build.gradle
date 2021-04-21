@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.4'
+	id 'org.springframework.boot' version '2.3.5.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
@@ -9,7 +9,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 ext {
-	set('springCloudVersion', "2020.0.0")
+	set('springCloudVersion', "Hoxton.SR10")
 }
 
 repositories {
@@ -19,6 +19,9 @@ repositories {
 dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'io.opentracing.contrib:opentracing-spring-jaeger-cloud-starter:3.1.2'
+
 }
 dependencyManagement {
 	imports {

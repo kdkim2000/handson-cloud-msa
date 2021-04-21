@@ -44,3 +44,10 @@ spring:
               - PUT
               - OPTIONS
               - DELETE
+opentracing:
+  jaeger:
+    enabled: true
+    udp-sender:
+      host: localhost
+      port: 6831
+    log-spans: true

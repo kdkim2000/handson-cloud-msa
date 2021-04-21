@@ -1,7 +1,5 @@
 package com.samsungsds.eshop.order;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -9,7 +7,6 @@ import java.util.stream.Stream;
 import com.google.common.collect.Iterables;
 import com.samsungsds.eshop.cart.CartItem;
 import com.samsungsds.eshop.cart.CartService;
-import com.samsungsds.eshop.client.AdServiceClient;
 import com.samsungsds.eshop.client.ShippingServiceClient;
 import com.samsungsds.eshop.payment.Money;
 import com.samsungsds.eshop.payment.PaymentRequest;
@@ -95,7 +92,7 @@ public class OrderController {
     @DeleteMapping(value = "/orders/{orderId}")
     public ResponseEntity<Boolean> deleteOrder(@PathVariable Integer orderId) {
         try {
-            orderService.deleteOrder(orderId);
+            orderService.removeOrder(orderId);
         } catch (Exception e){
             return ResponseEntity.ok(false);
         }
@@ -129,6 +126,8 @@ public class OrderController {
 
         // 배송 요청
         ShippingRequest shippingRequest = new ShippingRequest(cartItems, orderRequest.getAddress());
+
+        //Shipping 정보를 임시로 받아온다
         ShippingResult shippingResult = shippingServiceClient.processShipOrder(shippingRequest);
         logger.info("shippingCost : " + shippingResult.getShippingCost());
 
@@ -144,7 +143,11 @@ public class OrderController {
         );
         OrderItem order = orderService.createOrder(newOrderItem);
         shippingResult.setOrderId(order.getId());
-        shippingServiceClient.saveShipping(shippingResult);
+
+
+        // Order를 생성하고 Shipping 데이터를 저장하기때문에 이후 Shipping 상태에서 에러가 발생할 수 있음 이때는 Order 상태를변경해놓아야 한다.
+        shippingServiceClient.saveShipping(shippingResult); // Shipping 데이터 저장
+
         // 카트 비우기
         cartService.emptyCart();
         return ResponseEntity.ok(new OrderResult(orderId, shippingResult.getShippingTrackingId(),

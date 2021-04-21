@@ -1,12 +1,10 @@
 package com.samsungsds.eshop.order;
 
-import com.samsungsds.eshop.cart.CartItem;
-
-import javax.persistence.*;
 import java.util.List;
 
 public class OrderItemDTO {
 
+    private Boolean isCanceled;
     private Integer id;
     private String productIds; // id, id, id
 
@@ -23,6 +21,7 @@ public class OrderItemDTO {
         this.emailAddress = orderItem.getEmailAddress();
         this.address = orderItem.getAddress();
         this.creditCardInfo = orderItem.getCreditCardInfo();
+        this.isCanceled = orderItem.getCanceled();
     }
 
     public Integer getId() {
@@ -79,5 +78,13 @@ public class OrderItemDTO {
 
     public void setShippingStatus(String shippingStatus) {
         this.shippingStatus = shippingStatus;
+    }
+
+    public Boolean getCanceled() {
+        return isCanceled;
+    }
+
+    public void setCanceled(Boolean canceled) {
+        isCanceled = canceled;
     }
 }
