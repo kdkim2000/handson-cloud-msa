@@ -9,7 +9,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 ext {
-    set('springCloudVersion', '2.3.5.RELEASE')
+    set('springCloudVersion', "Hoxton.SR10")
 }
 
 configurations {
