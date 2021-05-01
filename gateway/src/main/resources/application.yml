@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://35.240.133.202:8761/eureka
 
 spring:
   application:
@@ -35,7 +35,7 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:8080"
+            allowedOrigins: "http://35.240.133.202:8080"
             allow-credentials: true
             allowedHeaders: "*"
             allowedMethods:
@@ -48,6 +48,6 @@ opentracing:
   jaeger:
     enabled: true
     udp-sender:
-      host: localhost
+      host: 35.240.133.202
       port: 6831
     log-spans: true
