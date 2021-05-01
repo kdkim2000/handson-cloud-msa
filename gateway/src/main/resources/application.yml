@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://35.240.133.202:8761/eureka
+      defaultZone: http://localhost:8761/eureka
 
 spring:
   application:
@@ -48,6 +48,6 @@ opentracing:
   jaeger:
     enabled: true
     udp-sender:
-      host: 35.240.133.202
+      host: localhost
       port: 6831
     log-spans: true
